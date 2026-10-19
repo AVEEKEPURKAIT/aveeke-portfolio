@@ -1,0 +1,76 @@
+# Blog admin settings (Decap CMS). Open https://<your-site>/admin to write posts.
+backend:
+  name: github
+  repo: AVEEKEPURKAIT/aveeke-portfolio
+  branch: main
+  base_url: https://api.netlify.com
+  commit_messages:
+    create: "Blog: publish {{slug}}"
+    update: "Blog: update {{slug}}"
+    delete: "Blog: delete {{slug}}"
+    uploadMedia: "Blog: upload {{path}}"
+    deleteMedia: "Blog: delete {{path}}"
+
+media_folder: "images/blog"
+public_folder: "/images/blog"
+
+slug:
+  encoding: "ascii"
+  clean_accents: true
+
+collections:
+  - name: "posts"
+    label: "Blog posts"
+    label_singular: "Blog post"
+    description: "Each post gets its own SEO-friendly page at /blog/<post-url>.html. The site rebuilds about a minute after you click Publish."
+    folder: "content/posts"
+    create: true
+    slug: "{{slug}}"
+    extension: "md"
+    format: "frontmatter"
+    summary: "{{title}}"
+    sortable_fields: ["date", "title", "category"]
+    fields:
+      - label: "Title"
+        name: "title"
+        widget: "string"
+        hint: "Include your main keyword. 50–60 characters works best in Google."
+      - label: "SEO description"
+        name: "description"
+        widget: "text"
+        hint: "150–160 characters. Shown in Google results, link previews and on the blog card."
+      - label: "Focus keyword"
+        name: "keyword"
+        widget: "string"
+        required: false
+        hint: "e.g. google ads campaign structure. Use it in the title, description, first paragraph and one heading."
+      - label: "Category"
+        name: "category"
+        widget: "select"
+        options: ["SEO", "Google Ads", "Meta Ads", "Social Media", "Analytics", "AI", "Career"]
+        default: "SEO"
+      - label: "Publish date"
+        name: "date"
+        widget: "datetime"
+        format: "YYYY-MM-DD"
+        date_format: "DD MMM YYYY"
+        time_format: false
+      - label: "Cover image"
+        name: "image"
+        widget: "image"
+        required: false
+        hint: "1200 × 630 px, JPG or WebP, under 200 KB. Name the file with your keyword, e.g. google-ads-structure.jpg"
+      - label: "Cover image alt text"
+        name: "image_alt"
+        widget: "string"
+        required: false
+        hint: "Describe what the image shows. Helps Google Images and screen readers."
+      - label: "Published"
+        name: "published"
+        widget: "boolean"
+        default: true
+        hint: "Turn off to keep the post as a hidden draft."
+      - label: "Article"
+        name: "body"
+        widget: "markdown"
+        hint: "Use 'Heading two' for main sections and 'Heading three' for sub-sections. Add images with the + button."
